@@ -3,7 +3,7 @@ class CloudTest < Test::Unit::TestCase
     temp = PaperSizes.new
     @paper_sizes = temp.paper_sizes
     @ordered_sizes = temp.ordered_sizes
-    @cloud = WordCloud.new(GETTYSBURG,12,"Times-Roman")
+    @cloud = WordCloud.new({:text => GETTYSBURG})
   end
 
   def test_paper_sizes
@@ -16,10 +16,9 @@ class CloudTest < Test::Unit::TestCase
   def test_pallette
     assert_equal(@cloud.palette.background_color, "#FFFFFF")
     assert_equal(@cloud.palette.font_colors, ["#000000"])
-    @cloud = WordCloud.new(GETTYSBURG,12,"Times-Roman", "wb")
+    @cloud = WordCloud.new({:text => GETTYSBURG, :palette => "wb"})
     assert_equal(@cloud.palette.background_color, "#000000")
     assert_equal(@cloud.palette.font_colors, ["#FFFFFF"])
-    @cloud = WordCloud.new(GETTYSBURG,12,"Times-Roman", "blue-brown")
   end
 
   def test_text
@@ -31,7 +30,7 @@ class CloudTest < Test::Unit::TestCase
   end
 
   def test_boxes
-    @cloud = WordCloud.new(GETTYSBURG,12,"Times-Roman", "wb")
+    @cloud = WordCloud.new({:text => GETTYSBURG, :palette => "wb"})
     box = @cloud.boxes["nation"]
     assert_equal(box.ll.x,0)
     assert_equal(box.ll.y,0)

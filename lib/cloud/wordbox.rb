@@ -167,7 +167,6 @@ module WordBox
     def rotate(canvas)
       #rotates box 90 degrees counterclockwise
       ll = self.ll
-      p ll
       self.set_from_width_and_height(self.height,self.width)
       self.place_ll_at_point(ll,canvas)
       self.orientation = "vertical"

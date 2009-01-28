@@ -48,24 +48,30 @@ class Palette
 end
 
 class WordCloud
-  attr_accessor :text, :word_freq, :min_text_size, :font, :pdf, :boxes, :canvas, :ordered_boxes, :placed_boxes, :placements, :palette, :common
-  def initialize(text, min_text_size, font, palette = "bw", lang = "EN")
-    @text = text
-    @font = font
-    if lang = "EN"
+  attr_accessor :text, :word_freq, :min_text_size, :font, :pdf, :boxes, :canvas, :ordered_boxes, :placed_boxes, 
+                :placements, :palette, :common, :max_words, :pdf_file
+  def initialize(options)
+    @text = options[:text]
+    @font = options[:font] ? options[:font] : "Times-Roman"
+    
+    if options[:lang] == "EN"
       @common = COMMON_EN
     else
       @common = COMMON_EN
     end
-    @palette = Palette.new(palette) 
-    @min_text_size = min_text_size
+    
+    palette_name = options[:palette] 
+    @palette = options[:palette] ? Palette.new(options[:palette]) : Palette.new("bw")  
+    @min_text_size = options[:min_text_size] ? options[:min_text_size] : 12 
     @pdf = PDF::Writer.new 
-    @pdf.select_font font
+    @pdf.select_font @font
     @word_freq = self.compute_frequencies
     @boxes = self.init_boxes
     @ordered_boxes = @boxes.sort {|a,b| @word_freq[b[0]] <=> @word_freq[a[0]]}
     @placed_boxes = Hash.new
     @placements = Array.new
+    @max_words = options[:max_words] ? options[:max_words] : 100
+    @pdf_file = options[:pdf_file] ? options[:pdf_file] : File.dirname(__FILE__) + '/../../pdf/cloud.pdf'
   end
 
   def compute_frequencies
@@ -162,7 +168,7 @@ class WordCloud
   end
 
   def dump_pdf
-    self.pdf.save_as "cloud.pdf"
+    self.pdf.save_as self.pdf_file
     #File.open("cloud.pdf", "wb") { |f| f.write self.pdf.render }
   end
 
@@ -281,7 +287,7 @@ class WordCloud
       self.placements = self.placements.sort {|a,b| a.distance<=>b.distance}
 
       i = i + 1
-      if i > 100   
+      if i > self.max_words
         break
       end
     }
