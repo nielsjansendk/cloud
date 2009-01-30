@@ -1,3 +1,11 @@
+$KCODE = 'UTF8'
+
+def time
+  start = Time.now
+  yield
+  Time.now - start
+end
+
 class PaperSizes
   attr_accessor :paper_sizes, :ordered_sizes
   def initialize
@@ -49,47 +57,109 @@ end
 
 class WordCloud
   attr_accessor :text, :word_freq, :min_text_size, :font, :pdf, :boxes, :canvas, :ordered_boxes, :placed_boxes, 
-                :placements, :palette, :common, :max_words, :pdf_file
+                :placements, :palette, :common, :max_words, :pdf_file, :min_freq, :storage, :distance_func
   def initialize(options)
-    @text = options[:text]
-    @font = options[:font] ? options[:font] : "Times-Roman"
-    
-    if options[:lang] == "EN"
-      @common = COMMON_EN
+    if (!options[:file] && !options[:rss] && !options[:delicious])
+      raise ArgumentError, "invalid argument, must specify either a filename or an url"
+    end
+    if options[:lang] == "DA"
+      @common = COMMON_DA + COMMON_EN
     else
       @common = COMMON_EN
     end
     
-    palette_name = options[:palette] 
-    @palette = options[:palette] ? Palette.new(options[:palette]) : Palette.new("bw")  
+    @max_words = options[:max_words] ? options[:max_words] : 100
+      
+    @text = ""
+    if options[:file]
+      File.open(options[:file], "r") do |infile|
+        while (line = infile.gets)
+          @text << line
+        end
+      end
+      @word_freq = self.compute_frequencies
+    elsif options[:rss]
+      xml = Net::HTTP.get_response(URI.parse(options[:rss])).body
+      doc = Hpricot::XML(xml)
+      doc.entries.each {|entry|
+        @text << entry.title.gsub(/<.*?>/,"")
+        @text << entry.content.gsub(/<.*?>/,"")
+      }
+      @word_freq = self.compute_frequencies
+    elsif options[:delicious]
+      converter = Iconv.new( 'ISO-8859-15//IGNORE//TRANSLIT', 'utf-8') 
+      xml = Net::HTTP.get_response(URI.parse("http://feeds.delicious.com/v2/rss/tags/#{options[:delicious]}")).body
+      doc = Hpricot::XML(xml)
+      freq = Hash.new(0)
+      doc.entries.each {|entry|
+        freq[converter.iconv(entry.title)] = entry.content.to_i
+      }
+      j = 1
+      while freq.size > @max_words
+        freq.delete_if {|key, value| value == j }
+        j = j + 1
+      end
+      @min_freq = j
+      @word_freq = freq
+    end
+    
     @min_text_size = options[:min_text_size] ? options[:min_text_size] : 12 
+    @font = options[:font] ? options[:font] : "Times-Roman"
+    
+    @palette = options[:palette] ? Palette.new(options[:palette]) : Palette.new("bw")  
     @pdf = PDF::Writer.new 
     @pdf.select_font @font
-    @word_freq = self.compute_frequencies
+    
+    
+    @min_text_size = @min_text_size/@min_freq
     @boxes = self.init_boxes
     @ordered_boxes = @boxes.sort {|a,b| @word_freq[b[0]] <=> @word_freq[a[0]]}
     @placed_boxes = Hash.new
     @placements = Array.new
-    @max_words = options[:max_words] ? options[:max_words] : 100
-    @pdf_file = options[:pdf_file] ? options[:pdf_file] : File.dirname(__FILE__) + '/../../pdf/cloud.pdf'
+    @pdf_file = options[:short_name] ? File.dirname(__FILE__) + '/../../pdf/' + options[:short_name]  + '.pdf' : File.dirname(__FILE__) + '/../../pdf/cloud.pdf'
+    if options[:short_name]
+      @storage = File.dirname(__FILE__) + "/../../tmp/#{options[:short_name]}.gz"
+    else
+      @storage = nil
+    end
+    if !options[:distance_type] || options[:distance_type] == "radial_center"
+      @distance_func = nil #this is the default
+    elsif options[:distance_type] == "radial_ll"
+      @distance_func = Proc.new {|point, canvas| Math.sqrt((point.x)**2 + (point.y)**2)}
+    elsif options[:distance_type] == "x-dist"
+      @distance_func = Proc.new {|point, canvas| [(point.y - canvas.center.y).abs,Math.sqrt((point.x - canvas.center.x)**2 + (point.y - canvas.center.y)**2)].min}
+    elsif options[:distance_type] == "ellipse"
+      @distance_func = Proc.new {|point, canvas| Math.sqrt((point.x - canvas.center.x)**2/3 + (point.y - canvas.center.y)**2)}
+    end
   end
 
   def compute_frequencies
     words = @text.split($/).join(" ").squeeze(" ").split(" ")
-
+    converter = Iconv.new( 'ISO-8859-15//IGNORE//TRANSLIT', 'utf-8')  
     freq = Hash.new(0)
     count = 0
 
     words.each{|word|
-      if word =~ /(\W)$/
+      if word =~ /([\W\d]+)/
         word = word.delete $1
       end
-      word = word.downcase
+      if word == ""
+        next
+      end
+      word = word.downcase      
+        
       if !self.common.include? word
+        word = converter.iconv(word)
         freq[word] = freq[word] +1
         count = count + 1
       end
     }
+    j = 1
+    while freq.size > self.max_words
+      freq.delete_if {|key, value| value == j }
+      j = j + 1
+    end
+    self.min_freq = j
     freq
   end
   def init_boxes
@@ -179,7 +249,7 @@ class WordCloud
     end
     first_box.place_center_at_point(self.canvas.center,self.canvas)
     self.placed_boxes[self.ordered_boxes.first[0]] = first_box
-    self.placements = first_box.enter_points_in_placements(self.placements, self.canvas)
+    self.placements = first_box.enter_points_in_placements(self.placements, self.canvas, nil, self.distance_func)
     self.placements = self.placements.sort {|a,b| a.distance<=>b.distance}
   end
 
@@ -217,6 +287,12 @@ class WordCloud
   end      
 
   def place_boxes(rotation_type)
+    if self.storage && File.exist?(self.storage)
+      self.placed_boxes = ObjectStash.load self.storage
+      p "words loaded from file"
+      return
+    end
+    
     self.place_first_box(rotation_type)
     i = 0
     unit_box = WordBox::Box.new
@@ -250,7 +326,6 @@ class WordCloud
       j = 0
       self.placements.each_with_index {|placement,index| 
         j = j+1
-        p "trying placement #{j} #{placement.position}"
         placed = false
         final_placement = index
         placement.opposite.each {|opposite|
@@ -273,6 +348,7 @@ class WordCloud
           end
         }
         if placed
+          p "placed word #{word}, number #{i+2} out of #{self.ordered_boxes.size}"
           break
         end
       }
@@ -280,7 +356,7 @@ class WordCloud
       self.placed_boxes[word] = box
       self.placements.delete_at(final_placement)
 
-      self.placements = box.enter_points_in_placements(self.placements, self.canvas, position)
+      self.placements = box.enter_points_in_placements(self.placements, self.canvas, position, self.distance_func)
 
       self.clean_placements(box.diagonal)
 
@@ -291,6 +367,9 @@ class WordCloud
         break
       end
     }
+    if self.storage
+      ObjectStash.store self.placed_boxes, self.storage
+    end
   end
 
   def put_placed_boxes_in_pdf
@@ -326,3 +405,23 @@ under until up
 very
 was wasn't we were we're what when where which while who why will with would wouldn't
 you your)
+
+COMMON_DA = %w(
+af at andre alle
+den det denne dette der da dem deres dig dog de du din dit
+en et er eller efter
+feks for fra fik fordi få før
+går gør
+har ham hans hendes hende havde have heller hen hun hvem hvad hvor hvilke hvis
+i ikke igen ind ingen
+jeg jer jeres jo ja
+kan kom kommer kun kunne
+man med men mange meget mere mig min må mit
+ned nej noget nok nu når
+osv og om også om op os over
+på
+så som skal selv sig sin sine skal skulle sådan
+til
+ud under
+var ved vil vil ville være været vi vores vha
+)

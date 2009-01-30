@@ -1,17 +1,18 @@
-desc 'Generate a word cloud of the Gettysburg address. Pdf with the cloud will be located in the pdf directory.'
-task :gettysburg do
+desc 'Generate a word cloud of a blog rss feed. Pdf with the cloud will be located in the pdf directory.'
+task :blog do
   temp = PaperSizes.new
   @paper_sizes = temp.paper_sizes
   @ordered_sizes = temp.ordered_sizes
-  options = {:file => File.dirname(__FILE__) + '/../test/gettysburg.txt',
+  options = {:rss => 'http://codegirl.dk/?feed=rss2',
              :min_font_size => 12,
              :max_words => 100,
              :font => "Times-Roman",
-             :palette => "winter",
-             :lang => "EN",
+             :palette => "heat",
+             :lang => "DA",
              :distance_type => "ellipse",
-             :short_name => "gettysburg_100_Times-Roman_horizontal_ellipse"          
-  }
+             :short_name => "codegirl_100_Times-Roman_horizontal_ellipse",
+    }
+  
   t = time { 
     @cloud = WordCloud.new(options)
     @cloud.place_boxes("horizontal")
@@ -20,4 +21,3 @@ task :gettysburg do
   }
   puts "execution took #{t} seconds"
 end
-  

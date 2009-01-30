@@ -14,11 +14,7 @@ module WordBox
     end
   end
 
-  class Point    
-    def distance_to_center(canvas)
-      Math.sqrt((self.x - canvas.center.x)**2 + (self.y - canvas.center.y)**2)
-    end
-    
+  class Point        
     def ==(point)
       self.x == point.x && self.y == point.y
     end
@@ -38,9 +34,12 @@ module WordBox
                             "ct" => ["cb","ll","lr"],
                             "cl" => ["cr","lr","ur"],
                             "cr" => ["cl","ll","ul"]}
-    def initialize(point, canvas, position, last = nil)
+    def initialize(point, canvas, position, last = nil, distance_func = nil)
+      if !distance_func
+        distance_func = Proc.new {|point, canvas| Math.sqrt((point.x - canvas.center.x)**2 + (point.y - canvas.center.y)**2)}
+      end
       @point = point
-      @distance = point.distance_to_center(canvas)
+      @distance = distance_func.call(point,canvas)
       @position = position
       @opposite = @@opposite_positions[position]
       if last
@@ -304,7 +303,7 @@ module WordBox
       return overlap
     end
 
-    def enter_points_in_placements(placements, canvas, exception = nil)
+    def enter_points_in_placements(placements, canvas, exception = nil, distance_func = nil)
       positions = @@edge_positions.dup
       last = nil
       if exception
@@ -314,7 +313,7 @@ module WordBox
         end
       end
       positions.each {|position|
-        placement = Placement.new(self.method(position).call,canvas,position,last)
+        placement = Placement.new(self.method(position).call,canvas,position,last, distance_func)
         placements << placement
       }
       
