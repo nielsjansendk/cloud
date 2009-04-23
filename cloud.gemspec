@@ -27,14 +27,14 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<hoe>, [">= 1.8.0"])
       s.add_runtime_dependency(%q<mime-types>, [">= 1.15"])
       s.add_runtime_dependency(%q<diff-lcs>, [">= 1.1.2"])
-      s.add_runtime_dependency(%q<rubyinline>, [">= 3.8.1"]) 
+      s.add_runtime_dependency(%q<RubyInline>, [">= 3.8.1"]) 
       s.add_runtime_dependency(%q<pdf-writer>, [">= 1.1.8"]) 
     else
       s.add_dependency(%q<newgem>, [">= 1.2.3"])
       s.add_dependency(%q<hoe>, [">= 1.8.0"])
       s.add_dependency(%q<mime-types>, [">= 1.15"])
       s.add_dependency(%q<diff-lcs>, [">= 1.1.2"])
-      s.add_dependency(%q<rubyinline>, [">= 3.8.1"]) 
+      s.add_dependency(%q<RubyInline>, [">= 3.8.1"]) 
       s.add_dependency(%q<pdf-writer>, [">= 1.1.8"]) 
     end
   else
@@ -42,7 +42,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<hoe>, [">= 1.8.0"])
     s.add_dependency(%q<mime-types>, [">= 1.15"])
     s.add_dependency(%q<diff-lcs>, [">= 1.1.2"])
-    s.add_dependency(%q<rubyinline>, [">= 3.8.1"]) 
+    s.add_dependency(%q<RubyInline>, [">= 3.8.1"]) 
     s.add_dependency(%q<pdf-writer>, [">= 1.1.8"]) 
   end
 end
