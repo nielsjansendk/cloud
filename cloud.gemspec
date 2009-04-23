@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 Gem::Specification.new do |s|
-  s.name = %q{cloud}
-  s.version = "0.0.1"
+  s.name = %q{ninajansen-cloud}
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Nina Jansen"]
@@ -14,7 +14,6 @@ Gem::Specification.new do |s|
   s.homepage = %q{FIX (url)}
   s.rdoc_options = ["--main", "README.rdoc"]
   s.require_paths = ["lib"]
-  s.rubyforge_project = %q{cloud}
   s.rubygems_version = %q{1.3.1}
   s.summary = %q{Generates pdf-files with word clouds based on input}
   s.test_files = ["test/test_cloud.rb", "test/test_helper.rb", "test/test_wordbox.rb"]

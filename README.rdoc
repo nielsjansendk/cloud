@@ -1,4 +1,4 @@
-= cloud
+= ninajansen-cloud
 
 * FIX (url)
 
@@ -12,7 +12,7 @@ Generates pdf-files with word clouds based on input. Inspired by wordle, but pro
 
 But it is open source so feel free and encouraged to hack away and make this gem better.
 
-The algortihm is a bin-packing algortihm. This means that clouds aim to take up as small an area as possible. A word has a surrounding box and that box is placed as close to the "center" as possible, where is does not collide with other boxes. The "center" is computed by a radial function, of which I have implemented several, making is possible to generate clouds of different shapes.
+The algortihm is a bin-packing algorithm. This means that clouds aim to take up as small an area as possible. A word has a surrounding box and that box is placed as close to the "center" as possible, where is does not collide with other boxes. The "center" is computed by a radial function, of which I have implemented several, making is possible to generate clouds of different shapes.
 
 This is a beta in the original sense of the word, not in the google sense.
 
@@ -21,11 +21,11 @@ This is a beta in the original sense of the word, not in the google sense.
 * Can generate a word cloud from text, rss-feed or del.icio.us name
 * Can use a number of different color palettes
 * Can use a number of cloud shapes
-* Can ignore common English and Danish words
+* Can ignore common English and Danish words (feel free to add your own language(s))
 
 == SYNOPSIS:
 
-  The rake tasks show how to generate 3 different word-clouds
+  An example repo is on it's way.
 
 == REQUIREMENTS:
 
