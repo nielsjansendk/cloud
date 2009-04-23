@@ -23,7 +23,7 @@ Generates pdf-files with word clouds based on input. Inspired by wordle, but pro
 
 == INSTALL:
 
-* sudo gem install cloud
+* sudo gem install ninajansen-cloud
 
 == LICENSE:
 
