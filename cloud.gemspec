@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 Gem::Specification.new do |s|
   s.name = %q{ninajansen-cloud}
-  s.version = "0.0.2"
+  s.version = "0.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Nina Jansen"]
@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.description = %q{Generates pdf-files with word clouds based on input. Inspired by wordle, but probably uses an entirely different algorithm, since Wordle is not Open Source.}
   s.email = ["info@ninajansen.dk"]
   s.extra_rdoc_files = ["History.txt", "Manifest.txt", "PostInstall.txt", "README.rdoc"]
-  s.files = ["History.txt", "Manifest.txt", "PostInstall.txt", "README.rdoc", "Rakefile", "lib/cloud.rb", "script/console", "script/destroy", "script/generate", "test/test_cloud.rb", "test/test_helper.rb", "test/test_wordbox.rb"]
+  s.files = ["History.txt", "Manifest.txt", "PostInstall.txt", "README.rdoc", "Rakefile", "lib/cloud.rb", "lib/cloud/cloud.rb","lib/cloud/object_stash.rb","lib/cloud/rss.rb","lib/cloud/wordbox.rb","script/console", "script/destroy", "script/generate", "test/test_cloud.rb", "test/test_helper.rb", "test/test_wordbox.rb"]
   s.has_rdoc = true
   s.homepage = %q{FIX (url)}
   s.rdoc_options = ["--main", "README.rdoc"]

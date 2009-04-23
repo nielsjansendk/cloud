@@ -8,7 +8,7 @@ Generates pdf-files with word clouds based on input. Inspired by wordle, but pro
 
 * Is much slower than Wordle (it takes about a minute to generate a 100 word cloud)
 * Outputs only in pdf (if there was a decend xvg writer for ruby, I'd use that). 
-* Can't put words inside other words like world, and also a big word has a big space surrounding it while a small word has a small space.
+* Can't put words inside other words like wordle, and also a big word has a big space surrounding it while a small word has a small space.
 
 But it is open source so feel free and encouraged to hack away and make this gem better.
 
@@ -22,6 +22,10 @@ This is a beta in the original sense of the word, not in the google sense.
 * Can use a number of different color palettes
 * Can use a number of cloud shapes
 * Can ignore common English and Danish words (feel free to add your own language(s))
+
+Problems:
+
+* I found the object_stash and rss methods somewhere in the internet and I haven't given credit to the authors. I should definitly figure out where they came from and give credit where credit is due.
 
 == SYNOPSIS:
 
