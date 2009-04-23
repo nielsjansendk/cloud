@@ -160,9 +160,15 @@ class WordBoxTest < Test::Unit::TestCase
     assert_equal(@box.overlap?(box3),true)
   end
 
-  def test_distance_to_center
+  def test_distance_func
     @box.set_from_width_and_height(1,1)
-    assert_equal(@box.ll.distance_to_center(@canvas), Math.sqrt(25*2))
+    placements = @box.enter_points_in_placements(Array.new, @canvas)
+    ll = placements.find {|placement| placement.position == "ll"}
+    assert_equal(ll.distance, Math.sqrt(25*2))
+    distance_func = Proc.new {|point, canvas| (point.x - canvas.center.x).abs}
+    placements = @box.enter_points_in_placements(Array.new, @canvas, nil, distance_func)
+    ll = placements.find {|placement| placement.position == "ll"}
+    assert_equal(ll.distance, 5)
   end
 
   def test_enter_points_in_placements

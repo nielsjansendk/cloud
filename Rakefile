@@ -1,4 +1,4 @@
-%w[rubygems rake rake/clean fileutils newgem rubigen pdf/writer inline].each { |f| require f }
+%w[rubygems rake rake/clean fileutils newgem rubigen hpricot iconv pdf/writer inline].each { |f| require f }
 require File.dirname(__FILE__) + '/lib/cloud'
 
 # Generate all the Rake tasks

@@ -4,14 +4,14 @@ task :blog do
   @paper_sizes = temp.paper_sizes
   @ordered_sizes = temp.ordered_sizes
   options = {:rss => 'http://codegirl.dk/?feed=rss2',
-             :min_font_size => 12,
-             :max_words => 100,
-             :font => "Times-Roman",
-             :palette => "heat",
-             :lang => "DA",
-             :distance_type => "ellipse",
-             :short_name => "codegirl_100_Times-Roman_horizontal_ellipse",
-    }
+    :min_font_size => 12,
+    :max_words => 100,
+    :font => "Times-Roman",
+    :palette => "heat",
+    :lang => "DA",
+    :distance_type => "ellipse",
+    :pdf_dir => "/Users/jansen/Code/ruby/cloud/tmp"
+  }
   
   t = time { 
     @cloud = WordCloud.new(options)

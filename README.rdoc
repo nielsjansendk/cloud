@@ -4,15 +4,18 @@
 
 == DESCRIPTION:
 
-FIX (describe your package)
+Generates pdf-files with word clouds based on input. Inspired by wordle, but probably uses an entirely different algorithm, since Wordle is not Open Source.
 
 == FEATURES/PROBLEMS:
 
-* FIX (list of features or problems)
+* Can generate a word cloud from text, rss-feed or del.icio.us name
+* Can use a number of different color palettes
+* Can use a number of cloud shapes
+* Can ignore common English and Danish words
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+  The rake tasks show how to generate 3 different word-clouds
 
 == REQUIREMENTS:
 
@@ -20,13 +23,13 @@ FIX (describe your package)
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+* sudo gem install cloud
 
 == LICENSE:
 
 (The MIT License)
 
-Copyright (c) 2009 FIXME full name
+Copyright (c) 2009 Nina Jansen
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
