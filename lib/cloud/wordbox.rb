@@ -1,3 +1,5 @@
+require 'inline'
+
 module WordBox
   class Point
     attr_accessor :x, :y

@@ -1,4 +1,7 @@
 $KCODE = 'UTF8'
+require "net/http"
+require "iconv"
+require 'PDF/Writer'
 
 def time
   start = Time.now
@@ -116,9 +119,9 @@ class WordCloud
     @ordered_boxes = @boxes.sort {|a,b| @word_freq[b[0]] <=> @word_freq[a[0]]}
     @placed_boxes = Hash.new
     @placements = Array.new
-    @pdf_file = options[:short_name] ? File.dirname(__FILE__) + '/../../pdf/' + options[:short_name]  + '.pdf' : File.dirname(__FILE__) + '/../../pdf/cloud.pdf'
+    @pdf_file = options[:short_name]  + '.pdf'
     if options[:short_name]
-      @storage = File.dirname(__FILE__) + "/../../tmp/#{options[:short_name]}.gz"
+      @storage = "#{options[:short_name]}.gz"
     else
       @storage = nil
     end

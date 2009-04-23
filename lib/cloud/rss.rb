@@ -1,3 +1,5 @@
+require "hpricot"
+
 module Hpricot
   module Rss
     module Common

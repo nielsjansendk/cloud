@@ -29,11 +29,16 @@ Problems:
 
 == SYNOPSIS:
 
-  An example repo is on it's way.
+Please clone this repository and try the examples:
+
+git clone git://github.com/ninajansen/cloud_examples.git 
+
+The README file (http://github.com/ninajansen/cloud_examples/tree/master) describes all the options
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+PDF::Writer
+RubyInline
 
 == INSTALL:
 
