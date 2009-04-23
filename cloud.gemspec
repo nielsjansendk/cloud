@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 Gem::Specification.new do |s|
   s.name = %q{ninajansen-cloud}
-  s.version = "0.0.3"
+  s.version = "0.0.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Nina Jansen"]
@@ -27,17 +27,23 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<hoe>, [">= 1.8.0"])
       s.add_runtime_dependency(%q<mime-types>, [">= 1.15"])
       s.add_runtime_dependency(%q<diff-lcs>, [">= 1.1.2"])
+      s.add_runtime_dependency(%q<rubyinline>, [">= 3.8.1"]) 
+      s.add_runtime_dependency(%q<pdf-writer>, [">= 1.1.8"]) 
     else
       s.add_dependency(%q<newgem>, [">= 1.2.3"])
       s.add_dependency(%q<hoe>, [">= 1.8.0"])
       s.add_dependency(%q<mime-types>, [">= 1.15"])
       s.add_dependency(%q<diff-lcs>, [">= 1.1.2"])
+      s.add_dependency(%q<rubyinline>, [">= 3.8.1"]) 
+      s.add_dependency(%q<pdf-writer>, [">= 1.1.8"]) 
     end
   else
     s.add_dependency(%q<newgem>, [">= 1.2.3"])
     s.add_dependency(%q<hoe>, [">= 1.8.0"])
     s.add_dependency(%q<mime-types>, [">= 1.15"])
     s.add_dependency(%q<diff-lcs>, [">= 1.1.2"])
+    s.add_dependency(%q<rubyinline>, [">= 3.8.1"]) 
+    s.add_dependency(%q<pdf-writer>, [">= 1.1.8"]) 
   end
 end
 

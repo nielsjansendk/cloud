@@ -6,5 +6,5 @@ $:.unshift(File.dirname(__FILE__)) unless
   require File.dirname(__FILE__) + '/cloud/object_stash.rb'
   require File.dirname(__FILE__) + '/cloud/rss.rb'
 module Cloud
-  VERSION = '0.0.3'
+  VERSION = '0.0.4'
 end
