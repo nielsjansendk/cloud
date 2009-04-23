@@ -4,7 +4,17 @@
 
 == DESCRIPTION:
 
-Generates pdf-files with word clouds based on input. Inspired by wordle, but probably uses an entirely different algorithm, since Wordle is not Open Source.
+Generates pdf-files with word clouds based on input. Inspired by wordle, but probably uses an entirely different algorithm, since Wordle is not Open Source. Also:
+
+* Is much slower than Wordle (it takes about a minute to generate a 100 word cloud)
+* Outputs only in pdf (if there was a decend xvg writer for ruby, I'd use that). 
+* Can't put words inside other words like world, and also a big word has a big space surrounding it while a small word has a small space.
+
+But it is open source so feel free and encouraged to hack away and make this gem better.
+
+The algortihm is a bin-packing algortihm. This means that clouds aim to take up as small an area as possible. A word has a surrounding box and that box is placed as close to the "center" as possible, where is does not collide with other boxes. The "center" is computed by a radial function, of which I have implemented several, making is possible to generate clouds of different shapes.
+
+This is a beta in the original sense of the word, not in the google sense.
 
 == FEATURES/PROBLEMS:
 
