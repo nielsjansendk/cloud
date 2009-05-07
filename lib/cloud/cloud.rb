@@ -69,6 +69,8 @@ class WordCloud
       @common = COMMON_DA + COMMON_EN
     elsif options[:lang] == "SP"
       @common = COMMON_SP
+    elsif options[:lang] == "DE"
+      @common = COMMON_DE
     else
       @common = COMMON_EN
     end
@@ -453,3 +455,25 @@ tal también tan tanto te tener tenía tiempo tiene tienen toda todas todo todos
 un una uno unos usted
 va valer vamos veces venir ver vez vida volver
 y ya yo)
+
+#source:
+#http://de.wikipedia.org/wiki/Liste_der_h%C3%A4ufigsten_W%C3%B6rter_der_deutschen_Sprache
+#removed some common words from that list, such as Mann (man) or Liebe (love)
+
+COMMON_DE = %w(
+die der und in zu den das nicht von sie ist des sich mit dem dass daß
+er es ein ich auf so eine auch als an nach wie im für
+man aber aus durch wenn nur war noch werden bei hat wir was wird sein
+einen welche sind oder um haben einer mir über ihm diese einem ihr uns
+da zum kann doch vor dieser mich ihn du hatte seine mehr am denn nun
+unter sehr selbst schon hier bis habe ihre dann ihnen seiner alle
+wieder meine gegen vom ganz einzelnen wo muss muß ohne eines
+können sei ja wurde jetzt immer seinen wohl dieses ihren würde diesen
+sondern weil welcher nichts diesem alles waren will viel mein also
+soll worden lassen dies machen ihrer weiter recht etwas keine seinem
+ob dir allen großen müssen welches wäre erst einmal hätte zwei dich
+allein während anders kein damit gar euch sollte konnte ersten deren
+zwischen wollen denen dessen sagen bin gut darauf wurden weiß gewesen
+bald weit große solche hatten eben andern beiden macht sehen ganze
+anderen lange wer ihrem zwar gemacht dort kommen heute werde derselben
+ganzen lässt läßt vielleicht meiner)
