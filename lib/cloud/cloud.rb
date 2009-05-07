@@ -67,6 +67,8 @@ class WordCloud
     end
     if options[:lang] == "DA"
       @common = COMMON_DA + COMMON_EN
+    elsif options[:lang] == "SP"
+      @common = COMMON_SP
     else
       @common = COMMON_EN
     end
@@ -428,3 +430,26 @@ til
 ud under
 var ved vil vil ville være været vi vores vha
 )
+
+COMMON_SP = %w(
+a abrir además ahora al algo algunos andar año años antes aquí así aunque
+bien bueno
+cada caer casa casi caso cerrar como conocer cómo con contra cosas creer creo cuando
+dar de decir del desde después día días dice dijo donde dormir dos durante
+e ejemplo el él ella ellos empezar en encontrar entonces entre era es esa escoger ese eso España esta está estaba estado están estas este esto estos estoy
+forma fue
+general gente gobierno gran
+ha había hace hacer hacia han hasta hay he hecho hombre hoy
+ir
+jugar
+la las le leer les llegar lo los luego lugar
+más mayor me mejor menos mi mí mientras mirar mismo momento mucho mujer mundo muy
+nada ni no nos nosotros nunca
+o oír olvidar otra otras otro otros
+país pagar para parece parte pedir pensar perder pero personas poco poder política poner por porque primera puede puedenpues
+que quedar querer qué
+saber sacar salir se sea seguir según sentir ser si sí sido siempre sin sino sobre sólo son su sus
+tal también tan tanto te tener tenía tiempo tiene tienen toda todas todo todos trabajo traer tres tu
+un una uno unos usted
+va valer vamos veces venir ver vez vida volver
+y ya yo)
