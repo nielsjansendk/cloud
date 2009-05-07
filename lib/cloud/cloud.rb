@@ -60,7 +60,7 @@ end
 
 class WordCloud
   attr_accessor :text, :word_freq, :min_text_size, :font, :pdf, :boxes, :canvas, :ordered_boxes, :placed_boxes, 
-                :placements, :palette, :common, :max_words, :pdf_file, :min_freq, :storage, :distance_func
+                :placements, :palette, :common, :max_words, :pdf_file, :min_freq, :distance_func
   def initialize(options)
     if (!options[:file] && !options[:rss] && !options[:delicious])
       raise ArgumentError, "invalid argument, must specify either a filename or an url"
@@ -124,11 +124,7 @@ class WordCloud
     @placed_boxes = Hash.new
     @placements = Array.new
     @pdf_file = options[:short_name]  + '.pdf'
-    if options[:short_name]
-      @storage = "#{options[:short_name]}.gz"
-    else
-      @storage = nil
-    end
+   
     if !options[:distance_type] || options[:distance_type] == "radial_center"
       @distance_func = nil #this is the default
     elsif options[:distance_type] == "radial_ll"
@@ -293,13 +289,7 @@ class WordCloud
     }
   end      
 
-  def place_boxes(rotation_type)
-    if self.storage && File.exist?(self.storage)
-      self.placed_boxes = ObjectStash.load self.storage
-      p "words loaded from file"
-      return
-    end
-    
+  def place_boxes(rotation_type)    
     self.place_first_box(rotation_type)
     i = 0
     unit_box = WordBox::Box.new
@@ -374,9 +364,6 @@ class WordCloud
         break
       end
     }
-    if self.storage
-      ObjectStash.store self.placed_boxes, self.storage
-    end
   end
 
   def put_placed_boxes_in_pdf

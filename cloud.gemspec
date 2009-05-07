@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 Gem::Specification.new do |s|
   s.name = %q{cloud}
-  s.version = "0.0.7"
+  s.version = "0.0.8"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Nina Jansen"]
@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.description = %q{Generates pdf-files with word clouds based on input. Inspired by wordle, but probably uses an entirely different algorithm, since Wordle is not Open Source.}
   s.email = ["info@ninajansen.dk"]
   s.extra_rdoc_files = ["History.txt", "Manifest.txt", "PostInstall.txt", "README.rdoc"]
-  s.files = ["History.txt", "Manifest.txt", "PostInstall.txt", "README.rdoc", "Rakefile", "lib/cloud.rb", "lib/cloud/cloud.rb","lib/cloud/object_stash.rb","lib/cloud/rss.rb","lib/cloud/wordbox.rb","script/console", "script/destroy", "script/generate", "test/test_cloud.rb", "test/test_helper.rb", "test/test_wordbox.rb"]
+  s.files = ["History.txt", "Manifest.txt", "PostInstall.txt", "README.rdoc", "Rakefile", "lib/cloud.rb", "lib/cloud/cloud.rb","lib/cloud/rss.rb","lib/cloud/wordbox.rb","script/console", "script/destroy", "script/generate", "test/test_cloud.rb", "test/test_helper.rb", "test/test_wordbox.rb"]
   s.has_rdoc = true
   s.homepage = %q{FIX (url)}
   s.rdoc_options = ["--main", "README.rdoc"]
@@ -30,6 +30,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<RubyInline>, [">= 3.8.1"]) 
       s.add_runtime_dependency(%q<pdf-writer>, [">= 1.1.8"]) 
       s.add_runtime_dependency(%q<hpricot>, [">= 0.8.1"]) 
+      s.add_runtime_dependency(%q<rubygen>, [">= 1.5.2"]) 
     else
       s.add_dependency(%q<newgem>, [">= 1.2.3"])
       s.add_dependency(%q<hoe>, [">= 1.8.0"])
@@ -38,6 +39,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<RubyInline>, [">= 3.8.1"]) 
       s.add_dependency(%q<pdf-writer>, [">= 1.1.8"]) 
       s.add_dependency(%q<hpricot>, [">= 0.8.1"]) 
+      s.add_dependency(%q<rubygen>, [">= 1.5.2"]) 
     end
   else
     s.add_dependency(%q<newgem>, [">= 1.2.3"])
@@ -47,6 +49,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<RubyInline>, [">= 3.8.1"]) 
     s.add_dependency(%q<pdf-writer>, [">= 1.1.8"]) 
     s.add_dependency(%q<hpricot>, [">= 0.8.1"]) 
+    s.add_dependency(%q<rubygen>, [">= 1.5.2"]) 
   end
 end
 

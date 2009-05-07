@@ -5,7 +5,6 @@ README.rdoc
 Rakefile
 lib/cloud.rb
 lib/cloud/cloud.rb
-lib/cloud/object_stash.rb
 lib/cloud/rss.rb
 lib/cloud/wordbox.rb
 script/console

@@ -25,8 +25,6 @@ This is a beta in the original sense of the word, not in the google sense.
 
 Problems:
 
-* I found the object_stash and rss methods somewhere in the internet and I haven't given credit to the authors. I should definitly figure out where they came from and give credit where credit is due.
-
 == SYNOPSIS:
 
 Please clone this repository and try the examples:

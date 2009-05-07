@@ -3,7 +3,14 @@ class CloudTest < Test::Unit::TestCase
     temp = PaperSizes.new
     @paper_sizes = temp.paper_sizes
     @ordered_sizes = temp.ordered_sizes
-    @cloud = WordCloud.new({:file => File.dirname(__FILE__) + '/gettysburg.txt'})
+    @cloud = WordCloud.new({:file => File.dirname(__FILE__) + '/gettysburg.txt', 
+      :min_font_size => 12,
+      :max_words => 100,
+      :font => "Times-Roman",
+      :palette => "bw",
+      :lang => "DA",
+      :distance_type => "ellipse",
+      :short_name => "test"})
   end
 
   def test_paper_sizes
@@ -16,7 +23,14 @@ class CloudTest < Test::Unit::TestCase
   def test_pallette
     assert_equal(@cloud.palette.background_color, "#FFFFFF")
     assert_equal(@cloud.palette.font_colors, ["#000000"])
-    @cloud = WordCloud.new({:file => File.dirname(__FILE__) + '/gettysburg.txt', :palette => "wb"})
+    @cloud = WordCloud.new({:file => File.dirname(__FILE__) + '/gettysburg.txt', 
+      :min_font_size => 12,
+      :max_words => 100,
+      :font => "Times-Roman",
+      :palette => "wb",
+      :lang => "DA",
+      :distance_type => "ellipse",
+      :short_name => "test"})
     assert_equal(@cloud.palette.background_color, "#000000")
     assert_equal(@cloud.palette.font_colors, ["#FFFFFF"])
   end
@@ -30,7 +44,14 @@ class CloudTest < Test::Unit::TestCase
   end
 
   def test_boxes
-    @cloud = WordCloud.new({:file => File.dirname(__FILE__) + '/gettysburg.txt', :palette => "wb"})
+    @cloud = WordCloud.new({:file => File.dirname(__FILE__) + '/gettysburg.txt', 
+      :min_font_size => 12,
+      :max_words => 100,
+      :font => "Times-Roman",
+      :palette => "wb",
+      :lang => "DA",
+      :distance_type => "ellipse",
+      :short_name => "test"})
     box = @cloud.boxes["nation"]
     assert_equal(box.ll.x,0)
     assert_equal(box.ll.y,0)
