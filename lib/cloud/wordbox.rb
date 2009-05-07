@@ -270,39 +270,19 @@ module WordBox
     end
 
     def overlap?(box, check = false)
-      if self == box
-        return true
-      end
+      ay = self.ll.y
+      ax = self.ll.x
+      by = self.ur.y
+      bx = self.ur.x
+
+      cy = box.ll.y
+      cx = box.ll.x
+      dy = box.ur.y
+      dx = box.ur.x
       
-      if check
-        if !self.close?(box)
-          return false
-        end
-      end
-      
-      overlap = false
-      self.segments.each {|segment|
-        intersection = false
-        box.segments.each {|segment2|
-          if segment.intersect?(segment2)
-            intersection = true
-            break
-          end
-        }
-        if intersection
-          overlap = true
-          break
-        end
-      }
-      if !overlap
-        ["center","cl","cr","cb","ct"].each {|c|
-          if self.point_in_box?(box.method(c).call) || box.point_in_box?(self.method(c).call) 
-            overlap = true
-            break
-          end
-        }
-      end
-      return overlap
+      outside = cy >= by || dy <= ay || dx <= ax || cx >= bx
+      return !outside
+
     end
 
     def enter_points_in_placements(placements, canvas, exception = nil, distance_func = nil)
