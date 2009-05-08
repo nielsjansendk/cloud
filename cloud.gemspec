@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = ["History.txt", "Manifest.txt", "PostInstall.txt", "README.rdoc"]
   s.files = ["History.txt", "Manifest.txt", "PostInstall.txt", "README.rdoc", "Rakefile", "lib/cloud.rb", "lib/cloud/cloud.rb","lib/cloud/rss.rb","lib/cloud/wordbox.rb","script/console", "script/destroy", "script/generate", "test/test_cloud.rb", "test/test_helper.rb", "test/test_wordbox.rb"]
   s.has_rdoc = true
-  s.homepage = %q{FIX (url)}
+  s.homepage = %q{http://wiki.github.com/ninajansen/cloud)}
   s.rdoc_options = ["--main", "README.rdoc"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.1}
