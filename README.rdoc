@@ -1,6 +1,6 @@
 = ninajansen-cloud
 
-* FIX (url)
+* http://wiki.github.com/ninajansen/cloud
 
 == DESCRIPTION:
 
