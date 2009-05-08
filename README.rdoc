@@ -15,6 +15,8 @@ The algortihm is a bin-packing algorithm. This means that clouds aim to take up 
 
 This is a beta in the original sense of the word, not in the google sense.
 
+My blog-post introducing "cloud" is here: http://ninajansen.dk/2009/04/23/introducing-cloud-an-open-source-ruby-wordcloud-generator/
+
 If you have used cloud to generate a cool wordcloud, please upload it to scribd and tag it with "wordcloud". Documents with this tag are here: http://www.scribd.com/tag/wordcloud 
 
 == FEATURES/PROBLEMS:
