@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/lib/cloud'
 
 # Generate all the Rake tasks
 # Run 'rake -T' to see list of generated tasks (from gem root directory)
-$hoe = Hoe.new('cloud', Cloud::VERSION) do |p|
+$hoe = Hoe.spec 'cloud' do |p|
   p.developer('Nina Jansen', 'info@ninajansen.dk')
   p.changes              = p.paragraphs_of("History.txt", 0..1).join("\n\n")
   p.rubyforge_name       = p.name # TODO this is default value
